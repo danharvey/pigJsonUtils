@@ -1,1 +1,18 @@
-Pig 0.7+ StoreFunc to save Pig data into rows of JSON objects.
+= Overview
+Pig StoreFunc to save Pig tuples into rows of JSON objects.
+
+The schema is derevied from the Pig schema  and supports all numeric, string, boolean types along with Bags and embeded Tuples.
+Not all Pig types are supported in JSON so not all tuples can be serialised with this, notebly the raw byte types.
+The Map type could also be supported but is not currently coded.
+
+== Usage
+
+To use you need to register the jar then you can use the loader and normal :-
+
+REGISTER lib/json-simple-1.1.jar;
+A = ...
+STORE A INTO 'test.json' USING uk.co.danharvey.pig.storage.JsonStorage();
+
+== ToDo
+
+The schema is currently shared between the output tasks using the same hdfs folder as the output using a file called _schema.json so this probably needs remove to make it behave the same as other map reduce jobs and output formats.
